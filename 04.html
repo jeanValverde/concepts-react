@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- development version prop types -->
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        //get element id root for render app
+        const rootElement = document.getElementById("root");
+
+        //method return component 
+        function SayHello(props) {
+            return (
+                <div> {props.firsName } {props.lastName || 'unknown'} </div>
+            )
+        }
+
+        //validate props types component 
+        SayHello.PropTypes = {
+            firsName(props, propName, component){
+              if(typeof props[propName] !== 'string' ){
+                   return new Error( `type prop string for ${ propName } in ${component} but you pass ${typeof props[propName]}`);
+              }
+            }
+        }
+
+        //type properties 
+        SayHello.propTypes = {
+            firsName: PropTypes.string.isRequired,
+            lastName: PropTypes.string.isRequired
+        }
+
+        ReactDOM.render(<SayHello firsName="jean"  lastName="gonzalez" />, rootElement);
+
+
+        //class in react 
+        class SayHelloClass extends React.Component {
+
+            //type properties 
+            static propTypes = {
+                firsName: PropTypes.string.isRequired,
+                lastName: PropTypes.string.isRequired
+            }
+
+            render(){
+                const {firsName, lastName} = this.props
+                return (
+                    <>
+                    <div>hola mundo desde clases {firsName} {lastName}</div>
+                    </>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <SayHelloClass firsName="jean"  lastName="gonzalez" />, 
+            rootElement
+        );
+
+    </script>
+</body>
+
+</html>

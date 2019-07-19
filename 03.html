@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+      const message = props =>  <h1>{props.message}</h1>;
+      const MessageComponent = props =>  <h1>{props.message}</h1>;
+      const MessageComponentChildren = props =>  <h1>{props.children}</h1>;
+
+      const element = (
+            <>
+            
+            {message ({message: 'message one'})}
+
+            {React.createElement(message, {message: 'message two'})}
+
+            <MessageComponent message="message tree" />
+
+            <MessageComponentChildren>Mensaje props heredados</MessageComponentChildren>
+            
+            </>
+      );
+      ReactDOM.render(element, rootElement);
+    </script>
+</body>
+
+</html>

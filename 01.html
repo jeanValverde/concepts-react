@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!---CDN REACT-->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+  <!--div #root for render app react -->
+  <div id="root"></div>
+  <script type="text/javascript">
+    const rootElement = document.getElementById("root");
+
+    const element = document.createElement('div');
+    element.textContent = "Hola Mundo con javascript";
+    element.className = 'container';
+    rootElement.appendChild(element);
+    console.log(element);
+
+
+    //attributes element
+
+    const attributes = {
+      className: 'container'
+    }
+
+    const elementReact = React.createElement('div', attributes, 'Hola Mundo con React');
+
+    console.log(elementReact);
+
+    ReactDOM.render(elementReact, rootElement);
+
+
+  </script>
+</body>
+
+</html>

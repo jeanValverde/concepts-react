@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+    
+    <div id="root"></div>
+
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        //javascript react 
+        const element = React.createElement('div', 
+        { className: 'container', children: 'Hola mundo' });
+
+        ReactDOM.render(element, rootElement);
+
+
+        //jsx 
+        const content = "Hola Mundo";
+        const className = "container";
+
+        const elementReact = (
+            <div className={className + "-other-class"} >{content}</div>
+        );
+
+        ReactDOM.render(elementReact, rootElement);
+
+        
+
+        //jsx and props 
+        const props = {
+            className: "container", 
+            children: "hola mundo con props"
+        }
+
+        const elementReactProps = <div {...props} />
+
+        ReactDOM.render(elementReactProps, rootElement);
+
+
+
+    </script>
+</body>
+
+</html>
