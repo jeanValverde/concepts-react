@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- development version prop types -->
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+</head>
+
+<body>
+    <style type="text/css">
+        .box {
+            border: 15px solid green;
+            padding: 50px;
+            height: 100px;
+            color: black;
+            font-size: xx-large;
+            text-align: center;
+        }
+
+        .box--large {
+            background-color: antiquewhite;
+        }
+
+        .box--medium {
+            width: 50%;
+            background-color: aquamarine;
+
+        }
+
+        .box--small {
+            width: 30%;
+            background-color: blueviolet;
+            color: white;
+        }
+    </style>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+     const rootElement = document.getElementById('root');
+
+function Box({styles, className = '' ,...rest}) {
+
+    return (
+        <div className={"box " + className}  {...rest} style={{...styles}}  />
+    )
+    
+}
+
+     const element = (
+      <>
+      <div style={{ 
+            border: '15px solid green',
+            padding: '50px',
+            height: '100px',
+            color: 'black',
+            fontSize: 'xx-large',
+            textAlign: 'center'
+     }} > Styles in component react  </div>
+     <hr/>
+     <div className="box" >Box normal class</div>
+     <hr/>
+
+     boxes
+
+     <hr/>
+     <Box className="box--small"  >Box small</Box>
+
+     
+     <hr/>
+     <Box className="box--medium"  >Box small</Box>
+
+     
+     <hr/>
+     <Box className="box--large"  >Box small</Box>
+     
+      </>
+     );
+
+     ReactDOM.render(element, rootElement);
+ 
+    </script>
+
+</body>
+
+</html>

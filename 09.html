@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- development version prop types -->
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+    <!--bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    class StopWatch extends React.Component{
+        state = {
+            lapse: 0, 
+            running: false
+        }
+
+        handleRunClick = () => {
+            this.setState(state => {
+                if(state.running){
+                    clearInterval(this.timer)
+                }else{
+                    const startTime = Date.now() - this.state.lapse
+                    this.timer = setInterval(()=>{
+                        this.setState({
+                            lapse: Date.now() - startTime
+                        })
+                    })
+                }
+                return {running: !state.running}
+            })   
+        }
+
+
+        handleClearClick = () => {
+            clearInterval(this.timer)
+            this.setState({
+                lapse: 0, 
+                running: false
+            })
+        }
+
+        render(){
+            const {lapse, running } = this.state;
+            return(    
+                <>
+                    <h1 >{lapse} ms</h1>
+                    <button onClick={this.handleRunClick} className="btn btn-primary" >{(running ? 'Stop' : 'Start')}</button>
+                    <button onClick={this.handleClearClick} className="btn btn-success" >Clear</button>
+                </>
+            )
+        }
+    }
+     
+       const element = <StopWatch />
+
+       ReactDOM.render(element, document.getElementById('root'));
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- development version prop types -->
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+    <!--bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    class StopWatch extends React.Component{
+        state = {
+            lapse: 0, 
+            running: false
+        }
+
+        handleRunClick = () => {
+            this.setState(state => {
+                if(state.running){
+                    clearInterval(this.timer)
+                }else{
+                    const startTime = Date.now() - this.state.lapse
+                    this.timer = setInterval(()=>{
+                        this.setState({
+                            lapse: Date.now() - startTime
+                        }, () => {
+                            console.log('console');
+                        } )
+                    })
+                }
+                return {running: !state.running}
+            })   
+        }
+
+
+        handleClearClick = () => {
+            clearInterval(this.timer)
+            this.setState({
+                lapse: 0, 
+                running: false
+            })
+        }
+
+        componentWillUnmount(){
+            clearInterval(this.timer)
+        }
+
+        handleEnableClick = () => {
+            const card = document.getElementById('cardTimer');
+            if(card.className === "row"){
+                card.className = "row d-lg-none";
+            }else{
+                card.className = "row";
+            }
+        }
+
+        render(){
+            const {lapse, running } = this.state;
+            return(    
+                <>
+                    <div className="col-auto my-1">
+                        <div className="custom-control custom-checkbox mr-sm-2">
+                            <input onClick={this.handleEnableClick} type="checkbox" className="custom-control-input" id="checkbox"/>
+                            <label className="custom-control-label" htmlFor="checkbox">Show Stop Watch</label>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div id="cardTimer" className="row" >
+                        <div className="col-md-4" ></div>
+                        <div className="card col-md-4" >
+                            <div className="card-body">
+                                <h5 className="card-title">Timer</h5>
+                                <h1 className="text-center" >{lapse} ms</h1>
+                                <div className="row" >
+                                 <div className="col-md-3" >
+                                    <button onClick={this.handleRunClick} className="btn btn-primary" >{(running ? 'Stop' : 'Start')}</button>
+                                 </div>
+                                 <div className="col-md-3" ></div>
+                                 <div className="col-md-3" ></div>
+                                 <div className="col-md-3" >
+                                    <button onClick={this.handleClearClick} className="btn btn-success " >Clear</button>
+                                 </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4" ></div>
+                    </div>
+                  </>
+            )
+        }
+    }
+     
+       const element = <StopWatch />
+
+       ReactDOM.render(element, document.getElementById('root'));
+
+    </script>
+</body>
+
+</html>
