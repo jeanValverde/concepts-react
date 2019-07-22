@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- development version prop types -->
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+    <!--bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+</head>
+<body>
+<div id="root"></div>
+
+<style>
+    .center-content{
+        float: none;
+        margin: 0 auto;
+    }
+</style>
+
+<script type="text/babel">
+
+    class NameForm extends React.Component{
+
+        handleSubmit = (event) => {
+            event.preventDefault();
+
+            //get value input:
+
+            //event.target.user.value
+            //event.target[0].value
+            //event.target.elements.user.value
+            //this.inputNode.value
+
+
+            console.log('Desde su name: ' + event.target.user.value);
+            console.log('Desde el arreglo Form: ' + event.target[0].value);
+            console.log('Desde un nodo: ' + this.userNode.value);
+            console.log('desde nombre de arreglo: ' + event.target.elements.user.value);
+
+
+            var dato1 = event.target.user.value;
+            var dato2 = event.target[0].value;
+            var dato3 = this.userNode.value;
+            var dato4 = event.target.elements.user.value;
+            const datos = [dato1, dato2, dato3, dato4];
+
+            renderApp(datos);
+
+        }
+
+        render(){
+            return(
+                <>
+                    <form onSubmit={this.handleSubmit} >
+                        <div className="row mt-4 mr-4 ml-4">
+                            <div className="col-md-3 mt-4 center-content">
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1">Form User</label>
+                                    <input name="user" type="text" className="form-control" placeholder="Type Name"
+                                    ref={node => this.userNode = node} />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Ok!</button>
+                            </div>
+                        </div>
+                    </form>
+                </>
+            )
+        }
+    }
+
+    function renderApp(datos){
+        const App = (
+            <>
+                <NameForm/>
+                <hr/>
+                <div className="ml-4 mr-4" >
+                    <div className="alert alert-danger" > {'Desde su name: ' + datos[0]} </div>
+                    <div className="alert alert-danger" > {'Desde el arreglo Form: ' + datos[1]} </div>
+                    <div className="alert alert-danger" > {'Desde un nodo: ' + datos[2]} </div>
+                    <div className="alert alert-danger" > {'Desde nombre del arreglo: ' + datos[3]} </div>
+                </div>
+            </>
+        );
+        ReactDOM.render(App, document.getElementById('root'));
+    }
+
+    ReactDOM.render(<NameForm/>, document.getElementById('root'));
+
+
+</script>
+
+</body>
+</html>

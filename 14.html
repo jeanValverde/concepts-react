@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!---CDN REACT-->
+    <script crossorigin src="https://unpkg.com/react@16.8/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16.8/umd/react-dom.development.js"></script>
+    <!--coiler babel javascript-->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- development version prop types -->
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+    <!--bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div id="root"></div>
+<style>
+    .center-content{
+        float: none;
+        margin: 0 auto;
+    }
+</style>
+<script type="text/babel" >
+    class NameForm extends React.Component{
+
+        state = {error: null}
+
+        handleSubmit = (event) => {
+            event.preventDefault();
+            const user = event.target.user.value;
+            const error = this.props.getErrorMenssage(user);
+        };
+
+        handleChange = (event) => {
+              const {value} = event.target;
+              this.setState({
+                  error: this.props.getErrorMenssage(value)
+              })
+        };
+
+        componentDidMount() {
+            this.setState({
+                error: this.props.getErrorMenssage('')
+            })
+        }
+
+
+        render(){
+            const {error} = this.state;
+            return(
+                <>
+                    <form onSubmit={this.handleSubmit} >
+                        <div className="row mt-4 mr-4 ml-4">
+                            <div className="col-md-3 mt-4 center-content">
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputEmail1">Form User</label>
+                                    <input name="user" onChange={this.handleChange} type="text" className="form-control" placeholder="Type Name"/>
+                                </div>
+                                {error ? <div className="alert alert-danger" >{error}</div> :null }
+                                <button disabled={Boolean(error)} type="submit" className="btn btn-primary">Ok!</button>
+                            </div>
+                        </div>
+                    </form>
+                </>
+            )
+        }
+    }
+
+    ReactDOM.render(<NameForm  getErrorMenssage={value => {
+        if(value.length < 3){
+            return 'Debe ser mayor a 3 letras';
+        }
+        return null;
+    } } />, document.getElementById('root'));
+
+</script>
+</body>
+</html>
